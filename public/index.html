@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BookMyShow Minimal</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}</style>
+  </head>
+<body>
+  <!-- Landing (Register/Login) -->
+  <section id="landing-section" style="display:block">
+    <div class="hero">
+      <h1>🎬 BookMyShow</h1>
+      <p>Login to start booking. Need an account? Register below.</p>
+    </div>
+    <div class="container">
+      <div class="panel">
+        <h2>Login</h2>
+        <form id="login-form">
+          <label>Email <input id="login-email" type="email" placeholder="you@example.com" required /></label>
+          <label>Password <input id="login-pass" type="password" placeholder="your password" required /></label>
+          <button type="submit" class="btn">Login</button>
+        </form>
+        <pre id="login-result" class="result"></pre>
+      </div>
+      <div class="divider"></div>
+      <div style="text-align:center;">
+        <a class="btn btn-outline" href="/register.html" id="link-register">Create an account</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard (features after auth) -->
+  <section id="dashboard-section" class="hidden" style="display:none">
+    <header>
+      <h1>🎬 BookMyShow Dashboard</h1>
+      <nav>
+        <a href="#" id="nav-home" class="active">🏠 Home</a>
+        <a href="#" id="nav-mybookings">🎫 My Bookings</a>
+        <div style="flex:1"></div>
+        <span class="auth-badge" id="auth-badge">Signed in</span>
+        <button class="btn btn-outline" id="btn-logout" style="background:#fff;color:#d61f26;font-weight:600">🚪 Logout</button>
+      </nav>
+    </header>
+    <main>
+      <!-- Step 1: Browse Movies -->
+      <section id="browse-section">
+        <h2>🎬 Now Showing</h2>
+        <div id="movies" class="movie-grid"></div>
+      </section>
+
+      <!-- Step 2: Select Showtime -->
+      <section id="showtime-section" class="hidden">
+        <div style="margin-bottom:20px">
+          <button class="btn btn-outline" id="btn-back-to-movies">← Back to Movies</button>
+        </div>
+        <div id="selected-movie-info" class="card" style="margin-bottom:20px"></div>
+        <h2>🎭 Select Showtime</h2>
+        <div id="showtimes"></div>
+      </section>
+
+      <!-- Step 3: Book Seats -->
+      <section id="book-section" class="hidden">
+        <div style="margin-bottom:20px">
+          <button class="btn btn-outline" id="btn-back-to-showtimes">← Back to Showtimes</button>
+        </div>
+        <div id="showtime-info" class="card" style="margin-bottom:16px"></div>
+        <h2>🎫 Select Your Seats</h2>
+        <div id="seat-selector" style="margin-bottom:16px"></div>
+        <form id="booking-form">
+          <input type="hidden" id="booking-showtime-id" />
+          <input type="hidden" id="booking-seats" />
+          <div id="selected-seats-display" style="margin-bottom:16px;padding:12px;background:#f8f9fa;border-radius:8px">
+            <strong>Selected Seats:</strong> <span id="seats-count">None</span>
+          </div>
+          <button type="submit" class="btn" id="confirm-booking-btn" disabled>🎫 Confirm Booking</button>
+        </form>
+      </section>
+
+      <!-- Step 4: My Bookings -->
+      <section id="mybookings-section" class="hidden">
+        <div style="margin-bottom:20px">
+          <button class="btn btn-outline" id="btn-back-to-movies-from-bookings">← Back to Movies</button>
+        </div>
+        <h2>🎫 My Bookings</h2>
+        <div id="bookings-list"></div>
+      </section>
+    </main>
+  </section>
+
+  <div id="toast" class="toast"></div>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register • BookMyShow</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <section id="landing-section">
+    <div class="hero">
+      <h1>Create Account</h1>
+      <p>Fill the form below to get started.</p>
+    </div>
+    <div class="container">
+      <div class="panel">
+        <form id="register-form">
+          <label>Name <input id="reg-name" placeholder="Your name" required /></label>
+          <label>Email <input id="reg-email" type="email" placeholder="you@example.com" required /></label>
+          <label>Password <input id="reg-pass" type="password" placeholder="min 6 chars" required minlength="6" /></label>
+          <button type="submit" class="btn">Register</button>
+        </form>
+        <div style="margin-top:12px;text-align:center;">
+          <a class="btn btn-outline" href="/">Back to Login</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div id="toast" class="toast"></div>
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
