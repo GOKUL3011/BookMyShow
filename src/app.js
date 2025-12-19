@@ -12,9 +12,22 @@ import { fileURLToPath } from 'url';
 dotenv.config();
 
 const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(morgan('dev'));
+
+// CORS configuration
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : '*',
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
+// Body parser
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Logging - use 'combined' in production, 'dev' in development
+const logFormat = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
+app.use(morgan(logFormat));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,6 +55,26 @@ app.get('/api', (_req, res) => {
       showtimesByMovie: 'GET /api/movies/:id/showtimes',
       createBooking: 'POST /api/bookings (auth)'
     }
+  });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  
+  const statusCode = err.statusCode || 500;
+  const message = process.env.NODE_ENV === 'production' && statusCode === 500
+    ? 'Internal server error'
+    : err.message || 'Something went wrong';
+  
+  res.status(statusCode).json({
+    error: message,
+    ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
   });
 });
 
